@@ -1,9 +1,12 @@
 %div{id: dom_id(course)}
   = render "attachment", course: course
-  %h5.card-title{style: "text-align: left; margin-top: 20px; margin-left: 10px"}= course.name
   .card-body
+    %h5.card-title
+      = course.name
     %p.card-text
       = course.description.slice(0, 50)
       = link_to t(".show_more"), teacher_course_path(course.id)
-    %a.btn.btn-primary{href: teacher_course_posts_path(course.id)} course posts
-    %a.btn.btn-primary{href: teacher_course_assignments_path(course.id)} course assignments
+  .card-footer.bg-transparent.border-0.pt-0
+    .d-flex.gap-2
+      = link_to "Course posts", teacher_course_posts_path(course.id), class: "btn btn-primary btn-sm"
+      = link_to "Course assignments", teacher_course_assignments_path(course.id), class: "btn btn-primary btn-sm"

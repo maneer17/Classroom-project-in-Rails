@@ -1,23 +1,22 @@
-.text-center.justify-content-center.vh-100{:style => "margin-left: 30%; margin-top: 50px"}
-  .w-100{:style => "max-width: 400px;"}
-    = form_for(resource, as: resource_name, url: session_path(resource_name), class: "form-signin") do |f|
-      %img.mb-4{
-        :alt => "",
-        :height => "72",
-        :src => "https://www.svgrepo.com/show/493587/female-student-studying.svg",
-        :width => "72"
-      }/
-      %h1.h3.mb-3.font-weight-normal
-        Please sign in
+.auth-page.d-flex.align-items-center.justify-content-center.p-3
+  .card.auth-card
+    .card-body.p-4.p-md-5
+      .text-center.mb-4
+        %img.mb-3{alt: "", height: "64", src: "https://www.svgrepo.com/show/493587/female-student-studying.svg", width: "64"}/
+        %h1.h4.fw-bold.mb-0 Student sign in
+        %p.text-muted.small Welcome back — log in to your classroom
 
-      = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mb-3", placeholder: "Email"
-      = f.password_field :password, autocomplete: "current-password", class: "form-control mb-3", placeholder: "Password"
+      = form_for(resource, as: resource_name, url: session_path(resource_name), class: "form-signin") do |f|
+        .mb-3
+          = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email"
+        .mb-3
+          = f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Password"
 
-      - if devise_mapping.rememberable?
-        .checkbox.mb-3
-          = f.check_box :remember_me, class: "mr-2"
-          = f.label :remember_me, class: "mb-0"
+        - if devise_mapping.rememberable?
+          .form-check.mb-3
+            = f.check_box :remember_me, class: "form-check-input"
+            = f.label :remember_me, class: "form-check-label"
 
-      = f.submit "Log in", class: "btn btn-primary btn-block rounded submit px-3 mb-3"
+        = f.submit "Log in", class: "btn btn-primary w-100 mb-3"
 
-    = render "students/shared/links"
+      = render "students/shared/links"

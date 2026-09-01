@@ -1,11 +1,10 @@
-%p{style: "color: green"}= notice
 - content_for :title, t(".title")
-%h1{style: "margin-left: 15px"} 
-%br/
-#courses
-  .container
-    .row.row-cols-1.row-cols-md-3.g-3
-      - courses.each do |course|
-        .col
-          .card{style: "height: 100%; margin-left: 20px; border-bottom-color: black"}
-            = render course
+
+.container.py-4
+  %h1.h3.fw-bold.mb-4= t(".title")
+
+  .row.row-cols-1.row-cols-md-3.g-4
+    - courses.each do |course|
+      .col
+        .card.course-card
+          = render course
