@@ -13,6 +13,7 @@ gem "haml-rails", "~> 2.0"
 gem "simple_form"
 gem "unsplash_image"
 gem "cssbundling-rails"
+gem "dartsass-rails"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
