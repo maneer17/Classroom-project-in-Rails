@@ -1,28 +1,22 @@
-%p{style: "color: green"}= notice
 - content_for :title, t(".title")
 
-%h1{style: "margin-left: 15px"}= t(".your_courses")
-%br/
+.container.py-4
+  %h1.h3.fw-bold.mb-4= t(".your_courses")
 
-#courses
-  .container
-    .row.row-cols-1.row-cols-md-3.g-3
-      - courses.each do |course|
-        .col
-          .card{style: "height: 100%; margin-left: 20px; border-bottom-color: black;"}
-            = render course
+  .row.row-cols-1.row-cols-md-3.g-4
+    - courses.each do |course|
+      .col
+        .card.course-card
+          = render course
 
-            .row.g-2{style: "margin: 10px 0;"}
-              .col-auto
-                = button_to t(".assignments"), student_course_assignments_path(course),
-                              method: :get, class: "btn btn-primary"
-              .col-auto
-                = button_to t(".posts"), student_course_posts_path(course),
-                              method: :get, class: "btn btn-primary"
+          .card-footer.bg-transparent.border-0.pt-0
+            .d-flex.gap-2.mb-2
+              = button_to t(".assignments"), student_course_assignments_path(course),
+                            method: :get, class: "btn btn-primary btn-sm"
+              = button_to t(".posts"), student_course_posts_path(course),
+                            method: :get, class: "btn btn-primary btn-sm"
 
-            .row{style: "margin: 10px 0;"}
-              .col
-                = button_to t(".unenroll_from_course"), unenroll_student_courses_path(course_id: course.id),
-                              method: :delete,
-                              class: "btn btn-danger",
-                              data: { turbo_confirm: t(".turbo_confirm", course_name: course.name) }
+            = button_to t(".unenroll_from_course"), unenroll_student_courses_path(course_id: course.id),
+                          method: :delete,
+                          class: "btn btn-outline-danger btn-sm w-100",
+                          data: { turbo_confirm: t(".turbo_confirm", course_name: course.name) }

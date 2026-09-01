@@ -1,6 +1,4 @@
-- if course.avatar.attached?
-  - if course.avatar.image?
-    = puts "333333333333333333333333333333333333#{course.avatar.attached?}"
-    = image_tag(course.avatar,class:"card-img-top")
+- if course.avatar.attached? && course.avatar.image?
+  = image_tag(course.avatar, class: "card-img-top")
 - else
-  = image_tag "courseImg.jpg",class:"card-img-top"
+  = image_tag "courseImg.jpg", class: "card-img-top"
