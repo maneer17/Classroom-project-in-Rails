@@ -1,24 +1,12 @@
-- if notice
-  .alert.alert-success.text-center.mb-4
-    = notice
+= render "shared/page_header", title: course.name, subtitle: course.description
 
-.card.shadow-sm.mb-4
-  .card-body
-    %h2.card-title.text-primary.mb-3= course.name
-    %p.card-text.text-muted= course.description
-
-    .d-flex.gap-2.mt-3
-      = link_to t("edit"),
-        edit_teacher_course_path(course),
-        class: "btn btn-warning px-4"
-
-      = button_to t("delete"),
-        [:teacher, course],
-        method: :delete,
-        class: "btn btn-danger px-4",
-        data: { confirm: t(".are_you_sure", default: "Are you sure you want to delete this course?") }
-
-.card.mt-3
-  .card-body
-    %p.mb-0.fw-semibold
+.detail-card
+  .d-flex.flex-wrap.gap-2.mb-3
+    %span.badge.badge-soft.rounded-pill
+      %i.bi.bi-people.me-1
       = "#{course.students.count} #{t('.enrolled_in_this_course')}"
+
+  .d-flex.flex-wrap.gap-2
+    = link_to t("edit"), edit_teacher_course_path(course), class: "btn btn-warning"
+    = button_to t("delete"), [:teacher, course], method: :delete, class: "btn btn-outline-danger", data: { turbo_confirm: t(".are_you_sure", default: "Are you sure you want to delete this course?") }
+    = link_to t("teacher.courses.course.back_to_courses"), teacher_courses_path, class: "btn btn-link"

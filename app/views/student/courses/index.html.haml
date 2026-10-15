@@ -1,28 +1,17 @@
-%p{style: "color: green"}= notice
 - content_for :title, t(".title")
 
-%h1{style: "margin-left: 15px"}= t(".your_courses")
-%br/
+= render "shared/page_header", title: t(".your_courses"), subtitle: "Jump into assignments and class posts", actions: link_to(t("layouts.navbars.student.enroll_in_new_courses"), new_courses_student_courses_path, class: "btn btn-outline-primary")
 
-#courses
-  .container
-    .row.row-cols-1.row-cols-md-3.g-3
-      - courses.each do |course|
-        .col
-          .card{style: "height: 100%; margin-left: 20px; border-bottom-color: black;"}
-            = render course
-
-            .row.g-2{style: "margin: 10px 0;"}
-              .col-auto
-                = button_to t(".assignments"), student_course_assignments_path(course),
-                              method: :get, class: "btn btn-primary"
-              .col-auto
-                = button_to t(".posts"), student_course_posts_path(course),
-                              method: :get, class: "btn btn-primary"
-
-            .row{style: "margin: 10px 0;"}
-              .col
-                = button_to t(".unenroll_from_course"), unenroll_student_courses_path(course_id: course.id),
-                              method: :delete,
-                              class: "btn btn-danger",
-                              data: { turbo_confirm: t(".turbo_confirm", course_name: course.name) }
+- if courses.any?
+  .row.g-4#courses
+    - courses.each do |course|
+      .col-md-6.col-lg-4
+        .card.course-card
+          = render course
+          .card-body.border-top
+            .course-card__actions
+              = link_to t(".assignments"), student_course_assignments_path(course), class: "btn btn-sm btn-primary"
+              = link_to t(".posts"), student_course_posts_path(course), class: "btn btn-sm btn-outline-primary"
+              = button_to t(".unenroll_from_course"), unenroll_student_courses_path(course_id: course.id), method: :delete, class: "btn btn-sm btn-outline-danger ms-auto", data: { turbo_confirm: t(".turbo_confirm", course_name: course.name) }
+- else
+  = render "shared/empty_state", icon: "collection", title: "No enrolled courses", message: "Browse the catalog and enroll to get started.", action: link_to("Enroll in courses", new_courses_student_courses_path, class: "btn btn-primary")

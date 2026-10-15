@@ -1,9 +1,8 @@
-%div{ id: dom_id(assignment) }
-  .assignment-details{ style: "margin-left: 20px" }
-    %p.assignment-title
-      %strong= assignment.title
-    %p.assignment-content
-      = assignment.content
-    %p.assignment-deadline
+.detail-card
+  %h2.h4.mb-3= assignment.title
+  %p.mb-3= assignment.content
+  - if assignment.deadline
+    %p.mb-0.text-muted
+      %i.bi.bi-calendar-event.me-1
       %strong= t(".deadline")
       = assignment.deadline.strftime("%B %d, %Y %I:%M %p")

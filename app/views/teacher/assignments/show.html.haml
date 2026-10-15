@@ -1,25 +1,8 @@
-- if notice
-  .alert.alert-success= notice
-
 = render assignment
 
-.container.mt-3
-  .row.g-2
-    .col-auto
-      = link_to t("edit"),
-        edit_teacher_course_assignment_path(course, assignment),
-        class: "btn btn-warning"
-    .col-auto
-      = button_to t("delete"),
-        [:teacher, course, assignment],
-        method: :delete,
-        class: "btn btn-danger"
-    .col-auto
-      = link_to t(".submissions_for_assignment"),
-        teacher_course_assignment_submissions_path(course, assignment),
-        class: "btn btn-primary"
-
-%br/
-= link_to t(".back_to_assignments"),
-  teacher_course_assignments_path,
-  class: "btn btn-info"
+.detail-card.mt-3
+  .d-flex.flex-wrap.gap-2
+    = link_to t("edit"), edit_teacher_course_assignment_path(course, assignment), class: "btn btn-warning"
+    = button_to t("delete"), [:teacher, course, assignment], method: :delete, class: "btn btn-outline-danger", data: { turbo_confirm: "Are you sure?" }
+    = link_to t(".submissions_for_assignment"), teacher_course_assignment_submissions_path(course, assignment), class: "btn btn-primary"
+    = link_to t(".back_to_assignments"), teacher_course_assignments_path(course), class: "btn btn-link ms-auto"

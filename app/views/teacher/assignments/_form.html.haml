@@ -1,25 +1,23 @@
-= form_with model: [:teacher, course, assignment], local: true, data: { controller: "flatpickr" }, class: "p-4" do |form|
+= form_with model: [:teacher, course, assignment], local: true, data: { controller: "flatpickr" }, class: "vstack gap-3" do |form|
   - if assignment.errors.any?
     .alert.alert-danger
-      %h4.mb-2
-        = pluralize(assignment.errors.count, "error")
-        = " prevented this assignment from being saved:"
+      %h4.h6.mb-2= "#{pluralize(assignment.errors.count, 'error')} prevented saving:"
       %ul.mb-0
         - assignment.errors.full_messages.each do |message|
           %li= message
 
-  .form-group.mb-3
+  .mb-0
     = form.label :title, class: "form-label"
     = form.text_field :title, class: "form-control", placeholder: "Enter assignment title"
 
-  .form-group.mb-3
+  .mb-0
     = form.label :deadline, class: "form-label"
     = form.datetime_field :deadline, class: "form-control deadline", placeholder: "Select a deadline"
 
-  .form-group.mb-4
+  .mb-0
     = form.label :content, class: "form-label"
     = form.text_area :content, class: "form-control", rows: 6, placeholder: "Describe the assignment..."
 
-  .d-flex.justify-content-between.align-items-center.mt-4
-    = form.submit "Save", class: "btn btn-primary px-4"
-    = link_to "Back to Assignments", teacher_course_assignments_path(course), class: "btn btn-secondary"
+  .d-flex.flex-wrap.gap-2.pt-2
+    = form.submit "Save", class: "btn btn-primary"
+    = link_to "Back to assignments", teacher_course_assignments_path(course), class: "btn btn-link"

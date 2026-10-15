@@ -1,22 +1,23 @@
-= form_with(model: [:teacher, course], local: true, class: "p-4") do |form|
+= form_with(model: [:teacher, course], local: true, class: "vstack gap-3") do |form|
   - if course.errors.any?
     .alert.alert-danger
-      %h4.mb-2
-        = pluralize(course.errors.count, "error")
-        = " prevented this course from being saved:"
+      %h4.h6.mb-2= "#{pluralize(course.errors.count, 'error')} prevented saving:"
       %ul.mb-0
         - course.errors.full_messages.each do |message|
           %li= message
-  .form-floating.mb-3
+
+  .form-floating
     = form.text_field :name, class: "form-control", id: "courseName", placeholder: "Course name"
-    = form.label :name, "Course Name", for: "courseName"
-  .form-floating.mb-3
-    = form.text_area :description, class: "form-control", id: "courseDescription", rows: 3, placeholder: "Description"
+    = form.label :name, "Course name", for: "courseName"
+
+  .form-floating
+    = form.text_area :description, class: "form-control", id: "courseDescription", style: "height: 120px", placeholder: "Description"
     = form.label :description, "Description", for: "courseDescription"
-  .mb-3
-    = form.label :avatar, "Course Avatar", class: "form-label"
+
+  .mb-0
+    = form.label :avatar, "Course cover (optional)", class: "form-label"
     = form.file_field :avatar, class: "form-control"
 
-  .d-flex.justify-content-between.align-items-center.mt-4
-    = form.submit "Save", class: "btn btn-primary px-4"
-    = link_to "Back to Courses", teacher_courses_path, class: "btn btn-secondary"
+  .d-flex.flex-wrap.gap-2.pt-2
+    = form.submit "Save", class: "btn btn-primary"
+    = link_to "Back to courses", teacher_courses_path, class: "btn btn-link"

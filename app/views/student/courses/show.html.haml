@@ -1,6 +1,11 @@
-%p{style: "color: green"}= notice
-%h2{style: "color: #666666; margin-left: 20px"}= course.name
-%p{style: "margin-left: 40px"}= course.description
-%p
-  = course.students.count
-  students enrolled in this course
+= render "shared/page_header", title: course.name, subtitle: course.description
+
+.detail-card
+  %p.mb-0
+    %i.bi.bi-people.me-2
+    = "#{course.students.count} students enrolled in this course"
+
+  .d-flex.flex-wrap.gap-2.mt-3
+    = link_to t("student.courses.index.assignments"), student_course_assignments_path(course), class: "btn btn-primary"
+    = link_to t("student.courses.index.posts"), student_course_posts_path(course), class: "btn btn-outline-primary"
+    = link_to "Back to my courses", student_courses_path, class: "btn btn-link"

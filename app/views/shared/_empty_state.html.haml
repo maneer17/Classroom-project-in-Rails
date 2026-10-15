@@ -1,0 +1,13 @@
+- icon ||= "inbox"
+- title ||= "Nothing here yet"
+- message ||= nil
+- action ||= nil
+
+.empty-state
+  .empty-state__icon
+    %i.bi{class: "bi-#{icon}"}
+  %h2.empty-state__title= title
+  - if message.present?
+    %p.mb-3= message
+  - if action.present?
+    = action

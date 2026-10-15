@@ -1,6 +1,6 @@
 - content_for :title, t(".title")
-%h1 New post
-= render "form"
-%br/
-%div
-  = link_to t(".back_to_posts"), teacher_course_posts_path
+
+= render "shared/page_header", title: t(".title"), subtitle: course.name
+
+.form-panel
+  = render "form", course: course, post: post
