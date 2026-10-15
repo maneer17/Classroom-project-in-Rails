@@ -1,23 +1,19 @@
-.text-center.justify-content-center.vh-100{:style => "margin-left: 30%; margin-top: 50px"}
-  .w-100{:style => "max-width: 400px;"}
-    = form_for(resource, as: resource_name, url: session_path(resource_name), class: "form-signin") do |f|
-      %img.mb-4{
-        :alt => "",
-        :height => "72",
-        :src => "https://www.svgrepo.com/show/493587/female-student-studying.svg",
-        :width => "72"
-      }/
-      %h1.h3.mb-3.font-weight-normal
-        Please sign in
+.auth-page
+  .auth-card
+    %img.auth-card__icon{alt: "Student", src: "https://www.svgrepo.com/show/493587/female-student-studying.svg"}/
+    %h1.auth-card__title Welcome back
+    %p.auth-card__subtitle Sign in to your student account
 
+    = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form" }) do |f|
       = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mb-3", placeholder: "Email"
       = f.password_field :password, autocomplete: "current-password", class: "form-control mb-3", placeholder: "Password"
 
       - if devise_mapping.rememberable?
-        .checkbox.mb-3
-          = f.check_box :remember_me, class: "mr-2"
-          = f.label :remember_me, class: "mb-0"
+        .form-check.mb-3
+          = f.check_box :remember_me, class: "form-check-input"
+          = f.label :remember_me, class: "form-check-label"
 
-      = f.submit "Log in", class: "btn btn-primary btn-block rounded submit px-3 mb-3"
+      = f.submit "Log in", class: "btn btn-primary btn-submit"
 
-    = render "students/shared/links"
+    .auth-card__links
+      = render "students/shared/links"

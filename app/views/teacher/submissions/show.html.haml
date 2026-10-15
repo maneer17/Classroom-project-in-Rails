@@ -1,7 +1,13 @@
-%p{style: "color: green"}= notice
-= render @submission
-%div
-  = button_to t(".back_to_assignment"), 
-    stud_course_assignment_path(@course, @assignment),
-    method: :get,
-    class: "btn btn-info"
+- sub = submission || @submission
+- crs = course || @course
+- asn = assignment || @assignment
+
+= render "shared/page_header", title: sub.title, subtitle: "Submitted #{sub.created_at.strftime('%B %d, %Y')}"
+
+.detail-card
+  %p.mb-2
+    %strong Student:
+    = Student.find(sub.student_id).name
+  %p.mb-3= render "attachment", submission: sub
+
+= link_to t(".back_to_assignment"), teacher_course_assignment_path(crs, asn), class: "btn btn-outline-primary"

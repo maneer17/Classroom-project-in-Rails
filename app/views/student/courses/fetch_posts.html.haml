@@ -1,18 +1,17 @@
-.main
-  .section
-    .container
-      - @posts.each do |post|
-        .card{style: "margin-top: 20px;"}
-          .card-content{style: "margin: 10px;"}
-            .media
-              .media-content
-                %p.title.is-7
-                  = link_to post.title, student_course_post_path(post.course, post)
+- content_for :title, "Posts feed"
 
-            .content
-              = post.body
+= render "shared/page_header", title: "Posts from your courses", subtitle: "Latest updates across enrolled classes"
 
-            .comment-count
-              %span.tag.is-rounded
-                = t(".comments",num_of_comments: post.comments.count) 
-              
+- if @posts.any?
+  .vstack.gap-3
+    - @posts.each do |post|
+      .card
+        .card-body
+          %span.badge.badge-soft.rounded-pill.mb-2= post.course.name
+          %h3.h5
+            = link_to post.title, student_course_post_path(post.course, post), class: "text-decoration-none"
+          .text-muted= truncate(post.body.to_plain_text, length: 280)
+          %p.small.text-muted.mb-0.mt-2
+            = t(".comments", num_of_comments: post.comments.count)
+- else
+  = render "shared/empty_state", icon: "chat-dots", title: "No posts yet", message: "When teachers post updates, they'll show up here."

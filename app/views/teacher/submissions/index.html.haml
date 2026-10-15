@@ -1,23 +1,25 @@
-%p{style: "color: green"}= notice
 - content_for :title, "Submissions"
-%h2{style: "background-color: lightblue; margin-left: 30px"}
-  Submissions for #{assignment.title} assignment
-%p{style: "margin-left: 60px"}
-  = submissions.count
-  students submitted this assignment so far
-#submissions
-  %table.table.table-bordered.border-primary
-    %thead
-      %tr
-        %th{scope: "col"} Student id
-        %th{scope: "col"} Student name
-        %th{scope: "col"} Submission title
-        %th{scope: "col"} Submission file
-        %th{scope: "col"} Submitted at:
-    %tbody
-      - submissions.each do |submission|
-        = render submission
-= button_to t(".back_to_assignment"), 
-  teacher_course_assignment_path(course, assignment),
-  method: :get,
-  class: "btn btn-info"
+
+= render "shared/page_header", title: "Submissions", subtitle: "#{assignment.title} · #{submissions.count} submitted"
+
+- if submissions.any?
+  .data-table-wrap#submissions
+    %table.table.table-hover.align-middle.mb-0
+      %thead
+        %tr
+          %th Student
+          %th Title
+          %th File
+          %th Submitted
+      %tbody
+        - submissions.each do |submission|
+          %tr
+            %td= Student.find(submission.student_id).name
+            %td= link_to submission.title, teacher_course_assignment_submission_path(course, assignment, submission), class: "text-decoration-none fw-semibold"
+            %td= render "attachment", submission: submission
+            %td.text-muted= submission.created_at.strftime("%b %d, %Y %I:%M %p")
+- else
+  = render "shared/empty_state", icon: "inbox", title: "No submissions yet", message: "Students haven't submitted work for this assignment."
+
+.mt-3
+  = link_to t(".back_to_assignment"), teacher_course_assignment_path(course, assignment), class: "btn btn-link"

@@ -1,16 +1,16 @@
-- content_for :title, t(".title",course_name: course.name)
-%h2
-  =t(".title",course_name: course.name)
-.section
-  .container
+- content_for :title, t(".title", course_name: course.name)
+
+= render "shared/page_header", title: t(".title", course_name: course.name)
+
+- if posts.any?
+  .vstack.gap-3
     - posts.each do |post|
       .card
-        .card-content{style:  "margin: 10px;"}
-          .media
-            .media-content
-              %p.title.is-7= link_to post.title,  student_course_post_path(course, post)
-          .content
-            = post.body
-          .comment-count
-            %span.tag.is-rounded
-            = post.comments.count == 0 ? t(".comments.zero") : post.comments.count == 1 ? t(".comments.one"): t(".comments.other", count: post.comments.count, model: "post")
+        .card-body
+          %h3.h5= link_to post.title, student_course_post_path(course, post), class: "text-decoration-none"
+          .text-muted.mb-2= truncate(post.body.to_plain_text, length: 200)
+          %span.badge.badge-soft.rounded-pill
+            - count = post.comments.count
+            = count == 0 ? t(".comments.zero") : (count == 1 ? t(".comments.one") : t(".comments.other", count: count))
+- else
+  = render "shared/empty_state", icon: "chat-square-text", title: "No posts", message: "Course announcements will appear here."

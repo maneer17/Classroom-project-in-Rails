@@ -1,10 +1,10 @@
 = turbo_stream_from assignment
 
-%div.card.mb-3{id: dom_id(assignment)}
-  .card-body
-    %h4.card-title.text-info= assignment.title
-    %p.card-text= assignment.content
-    - if assignment.deadline
-      %p.mt-2
-        %strong Deadline: 
-        = assignment.deadline.strftime("%B %d, %Y %I:%M %p")
+.detail-card{id: dom_id(assignment)}
+  %h2.h4.mb-3= assignment.title
+  %p.mb-3= assignment.content
+  - if assignment.deadline
+    %p.mb-0.text-muted
+      %i.bi.bi-calendar-event.me-1
+      %strong Deadline:
+      = assignment.deadline.strftime("%B %d, %Y %I:%M %p")

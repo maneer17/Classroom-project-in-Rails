@@ -1,3 +1,10 @@
-- flash.each do |flash_type, message| 
-    .flash__message
-    = message
+- if notice.present? || alert.present?
+  .flash-stack
+    - if notice.present?
+      .alert.alert-success.alert-dismissible.fade.show{role: "alert"}
+        = notice
+        %button.btn-close{type: "button", "data-bs-dismiss": "alert", "aria-label": "Close"}
+    - if alert.present?
+      .alert.alert-danger.alert-dismissible.fade.show{role: "alert"}
+        = alert
+        %button.btn-close{type: "button", "data-bs-dismiss": "alert", "aria-label": "Close"}

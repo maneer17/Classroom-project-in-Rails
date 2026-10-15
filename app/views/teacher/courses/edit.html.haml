@@ -1,8 +1,6 @@
-- content_for :title,t(".title")
-%h1 Editing course 
-= render "form"
-%br/
-%div
-  = link_to t("show"), [:teacher, course]
-  |
-  \#{link_to t(".back_to_courses"), teacher_courses_path}
+- content_for :title, t(".title")
+
+= render "shared/page_header", title: t(".title"), subtitle: course.name
+
+.form-panel
+  = render "form", course: course

@@ -1,25 +1,23 @@
-%h2.mb-4.text-primary= t(".posts_of_Xcourse", course_name: course.name)
+- content_for :title, t(".title")
 
-.d-flex.justify-content-between.align-items-center.mb-4
-  = link_to t(".new_post"),
-    new_teacher_course_post_path,
-    class: "btn btn-success px-4"
+= render "shared/page_header", title: t(".posts_of_Xcourse", course_name: course.name), actions: link_to(t(".new_post"), new_teacher_course_post_path, class: "btn btn-success")
 
-.container
-  - posts.each do |post|
-    .card.mb-3.shadow-sm
-      .card-body
-        %h5.card-title
-          = link_to post.title, teacher_course_post_path(course, post), class: "text-decoration-none text-dark"
-        %p.card-text.text-muted
-          = truncate(post.body.to_plain_text, length: 200)
-        .d-flex.justify-content-between.align-items-center.mt-3
-          %span.text-secondary.small
-            - count = post.comments.count
-            - if count == 0
-              = t(".comments.zero")
-            - elsif count == 1
-              = t(".comments.one")
-            - else
-              = t(".comments.other", count: count)
-          = link_to t(".view_post"), teacher_course_post_path(course, post), class: "btn btn-outline-primary btn-sm"
+- if posts.any?
+  .vstack.gap-3
+    - posts.each do |post|
+      .card
+        .card-body
+          %h3.h5.card-title= link_to post.title, teacher_course_post_path(course, post), class: "text-decoration-none"
+          %p.card-text.text-muted.mb-3= truncate(post.body.to_plain_text, length: 200)
+          .d-flex.justify-content-between.align-items-center.flex-wrap.gap-2
+            %span.badge.badge-soft.rounded-pill
+              - count = post.comments.count
+              - if count == 0
+                = t(".comments.zero")
+              - elsif count == 1
+                = t(".comments.one")
+              - else
+                = t(".comments.other", count: count)
+            = link_to t(".view_post"), teacher_course_post_path(course, post), class: "btn btn-sm btn-outline-primary"
+- else
+  = render "shared/empty_state", icon: "chat-square-text", title: "No posts yet", message: "Share updates with your class.", action: link_to(t(".new_post"), new_teacher_course_post_path, class: "btn btn-primary")

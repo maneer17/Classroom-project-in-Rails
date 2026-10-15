@@ -1,13 +1,9 @@
-%hr
-    %section.section.comments
-        .container
-            .row
-                .col-2
-                    %strong.subtitle.is-5{style: "color: green;"}= ("students_comments")
-                    = turbo_frame_tag dom_id(Comment.new)
-                .col-2    
-                    .comment-form
-                        = link_to "leave a comment",new_path, data: { turbo_frame: dom_id(Comment.new)}
-            #comments
-            = render partial: "shared/comments/comment",collection: comments, locals: { role: role }
-            
+.comment-thread.mt-4
+  .d-flex.flex-wrap.justify-content-between.align-items-center.gap-2.mb-3
+    %h3.comment-thread__title.mb-0 Discussion
+    = link_to "Leave a comment", new_path, class: "btn btn-sm btn-outline-primary", data: { turbo_frame: dom_id(Comment.new) }
+
+  = turbo_frame_tag dom_id(Comment.new)
+
+  #comments.vstack
+    = render partial: "shared/comments/comment", collection: comments, locals: { role: role, course: local_assigns[:course], post: local_assigns[:post] }
