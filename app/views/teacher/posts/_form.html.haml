@@ -1,21 +1,18 @@
-= form_with model: [:teacher, course, post], local: true, class: "p-4" do |form|
+= form_with model: [:teacher, course, post], local: true, class: "vstack gap-3" do |form|
   - if post.errors.any?
     .alert.alert-danger
-      %h4.mb-2
-        = pluralize(post.errors.count, "error")
-        = " prevented this post from being saved:"
       %ul.mb-0
         - post.errors.full_messages.each do |message|
           %li= message
 
-  .form-group.mb-3
+  .mb-0
     = form.label :title, class: "form-label"
     = form.text_field :title, class: "form-control", placeholder: "Enter post title"
 
-  .form-group.mb-3
+  .mb-0
     = form.label :body, class: "form-label"
     = form.text_area :body, class: "form-control", rows: 10, placeholder: "Write your post here..."
 
-  .d-flex.justify-content-between.align-items-center.mt-4
-    = form.submit "Save", class: "btn btn-primary px-4"
-    = link_to "Back to Posts", teacher_course_posts_path(course), class: "btn btn-secondary"
+  .d-flex.flex-wrap.gap-2
+    = form.submit "Save", class: "btn btn-primary"
+    = link_to "Back to posts", teacher_course_posts_path(course), class: "btn btn-link"

@@ -1,12 +1,9 @@
-%div{id: dom_id(course)}
+%div.card.course-card{id: dom_id(course)}
   = render "attachment", course: course
   .card-body
-    %h5.card-title
-      = course.name
-    %p.card-text
-      = course.description.slice(0, 50)
-      = link_to t(".show_more"), teacher_course_path(course.id)
-  .card-footer.bg-transparent.border-0.pt-0
-    .d-flex.gap-2
-      = link_to "Course posts", teacher_course_posts_path(course.id), class: "btn btn-primary btn-sm"
-      = link_to "Course assignments", teacher_course_assignments_path(course.id), class: "btn btn-primary btn-sm"
+    %h3.course-card__title= course.name
+    %p.course-card__meta.text-truncate= truncate(course.description.to_s, length: 80)
+    .course-card__actions
+      = link_to t("teacher.courses.course.show_more"), teacher_course_path(course), class: "btn btn-sm btn-outline-primary"
+      = link_to "Posts", teacher_course_posts_path(course), class: "btn btn-sm btn-outline-secondary"
+      = link_to "Assignments", teacher_course_assignments_path(course), class: "btn btn-sm btn-outline-secondary"

@@ -1,22 +1,19 @@
-.auth-page.d-flex.align-items-center.justify-content-center.p-3
-  .card.auth-card
-    .card-body.p-4.p-md-5
-      .text-center.mb-4
-        %img.mb-3{alt: "", height: "64", src: "https://www.svgrepo.com/show/229758/teacher.svg", width: "64"}/
-        %h1.h4.fw-bold.mb-0 Teacher sign in
-        %p.text-muted.small Welcome back — log in to your classroom
+.auth-page
+  .auth-card.auth-card--teacher
+    %img.auth-card__icon{alt: "Teacher", src: "https://www.svgrepo.com/show/229758/teacher.svg"}/
+    %h1.auth-card__title Welcome back
+    %p.auth-card__subtitle Sign in to your teacher account
 
-      = form_for(resource, as: resource_name, url: session_path(resource_name), class: "form-signin") do |f|
-        .mb-3
-          = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email"
-        .mb-3
-          = f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Password"
+    = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form" }) do |f|
+      = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mb-3", placeholder: "Email"
+      = f.password_field :password, autocomplete: "current-password", class: "form-control mb-3", placeholder: "Password"
 
-        - if devise_mapping.rememberable?
-          .form-check.mb-3
-            = f.check_box :remember_me, class: "form-check-input"
-            = f.label :remember_me, class: "form-check-label"
+      - if devise_mapping.rememberable?
+        .form-check.mb-3
+          = f.check_box :remember_me, class: "form-check-input"
+          = f.label :remember_me, class: "form-check-label"
 
-        = f.submit "Log in", class: "btn btn-dark w-100 mb-3"
+      = f.submit "Log in", class: "btn btn-primary btn-submit"
 
+    .auth-card__links
       = render "teachers/shared/links"

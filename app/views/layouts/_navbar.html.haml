@@ -1,18 +1,48 @@
-:ruby
-  active_devise = (current_teacher || current_student)
-  navbar_class = active_devise.class == Teacher ? 'bg-dark navbar-dark' : active_devise.class == Student ? 'navbar-dark bg-primary':'navbar-dark bg-info'
+- signed_in = current_teacher || current_student
+- role_name = current_teacher ? :teacher : (current_student ? :student : nil)
 
-%nav.navbar.navbar-expand-lg.shadow-sm{class: navbar_class}
-  .container-fluid
-    = link_to "Classroom", root_path, class: "navbar-brand"
-    %button.navbar-toggler{type: "button", data: {"bs-toggle": "collapse", "bs-target": "#navbarNav"}, aria: {controls: "navbarNav", expanded: "false", label: "Toggle navigation"}}
-      %span.navbar-toggler-icon
-    #navbarNav.collapse.navbar-collapse
-      %ul.navbar-nav.ms-auto
-        - if active_devise
-          = render "layouts/navbars/#{active_devise.class.name.underscore}"
+%header.app-header
+  %nav.navbar.navbar-expand-lg.navbar-light.py-3
+    .container.app-container
+      = link_to root_path, class: "navbar-brand d-flex align-items-center gap-2" do
+        %i.bi.bi-mortarboard-fill.text-primary
+        Classroom
+
+      %button.navbar-toggler{type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#mainNav", "aria-controls": "mainNav", "aria-expanded": "false", "aria-label": "Toggle navigation"}
+        %span.navbar-toggler-icon
+
+      #mainNav.collapse.navbar-collapse
+        - if signed_in
+          %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+            - if current_teacher
+              %li.nav-item
+                = link_to t("layouts.navbars.teacher.my_courses"), teacher_courses_path, class: "nav-link"
+              %li.nav-item
+                = link_to t("layouts.navbars.teacher.new_course"), new_teacher_course_path, class: "nav-link"
+            - if current_student
+              %li.nav-item
+                = link_to t("layouts.navbars.student.courses"), student_courses_path, class: "nav-link"
+              %li.nav-item
+                = link_to t("layouts.navbars.student.posts"), fetch_posts_student_courses_path, class: "nav-link"
+              %li.nav-item
+                = link_to t("layouts.navbars.student.upcoming_assignments"), upcoming_assignments_student_courses_path, class: "nav-link"
+              %li.nav-item
+                = link_to t("layouts.navbars.student.your_progress"), your_progress_student_courses_path, class: "nav-link"
+              %li.nav-item
+                = link_to t("layouts.navbars.student.enroll_in_new_courses"), new_courses_student_courses_path, class: "nav-link"
+
+          %ul.navbar-nav.ms-lg-auto.align-items-lg-center.gap-lg-2
+            %li.nav-item
+              %span.role-chip{class: "role-chip--#{role_name}"}
+                = role_name.to_s.capitalize
+            %li.nav-item
+              - if current_teacher
+                = link_to t("layouts.navbars.teacher.sign_out"), destroy_teacher_session_path, data: { turbo_method: :delete }, class: "nav-link"
+              - elsif current_student
+                = link_to t("layouts.navbars.student.sign_out"), destroy_student_session_path, data: { turbo_method: :delete }, class: "nav-link"
         - else
-          %li.nav-item
-            = link_to t(".teacher_sign_in"), new_teacher_session_path, class: "nav-link"
-          %li.nav-item
-            = link_to t(".student_sign_in"), new_student_session_path, class: "nav-link"
+          %ul.navbar-nav.ms-lg-auto
+            %li.nav-item
+              = link_to t("layouts.navbar.student_sign_in"), new_student_session_path, class: "nav-link"
+            %li.nav-item
+              = link_to t("layouts.navbar.teacher_sign_in"), new_teacher_session_path, class: "nav-link btn btn-primary btn-sm text-white ms-lg-2 px-3"

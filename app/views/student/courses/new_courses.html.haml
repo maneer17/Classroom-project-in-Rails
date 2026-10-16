@@ -1,16 +1,14 @@
 - content_for :title, t(".title")
 
-%h1{style: "margin-left: 15px"}= t(".title")
-%br/
+= render "shared/page_header", title: t(".title"), subtitle: "Discover courses you can join"
 
-#courses
-  .container
-    .row.row-cols-1.row-cols-md-3.g-3
-      - @courses.each do |course|
-        .col
-          .card{style: "height: 100%; margin-left: 20px; border-bottom-color: black"}
-            = render course
-            = button_to t(".enroll_in_course"), enroll_student_courses_path(course_id: course.id),
-                        method: :post,
-                        class: "btn btn-primary",
-                        data: { turbo_confirm: t(".turbo_confirm",course_name: course.name) }
+- if @courses.any?
+  .row.g-4#courses
+    - @courses.each do |course|
+      .col-md-6.col-lg-4
+        .card.course-card
+          = render course
+          .card-body.border-top.pt-0
+            = button_to t(".enroll_in_course"), enroll_student_courses_path(course_id: course.id), method: :post, class: "btn btn-primary w-100", data: { turbo_confirm: t(".turbo_confirm", course_name: course.name) }
+- else
+  = render "shared/empty_state", icon: "search", title: "No open courses", message: "Check back later for new classes."

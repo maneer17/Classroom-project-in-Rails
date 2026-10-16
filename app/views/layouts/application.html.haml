@@ -1,26 +1,28 @@
 !!!
-%html
+%html{lang: "en"}
   %head
     %meta{"http-equiv" => "Content-Type", content: "text/html; charset=UTF-8"}/
-    %title= content_for(:title) || "Moodle"
+    %title= content_for(:title) || "Classroom"
     %meta{name: "viewport", content: "width=device-width,initial-scale=1"}/
     %meta{name: "apple-mobile-web-app-capable", content: "yes"}/
     = csrf_meta_tags
     = csp_meta_tag
     = yield :head
+    %link{rel: "preconnect", href: "https://fonts.googleapis.com"}/
+    %link{rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: ""}/
+    %link{rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;500;600;700&display=swap"}/
     %link{rel: "manifest", href: "/manifest.json"}/
     %link{rel: "icon", href: "/icon.png", type: "image/png"}/
     %link{rel: "icon", href: "/icon.svg", type: "image/svg+xml"}/
     %link{rel: "apple-touch-icon", href: "/icon.png"}/
-    %link{rel: "preconnect", href: "https://fonts.googleapis.com"}/
-    %link{rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "anonymous"}/
-    %link{rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"}
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     %link{rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"}
     = javascript_importmap_tags
-    = javascript_include_tag "application", "data-turbo-track": "reload", type: "module" 
+    = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
 
-  %body
+  %body.app-shell
     = render "layouts/navbar"
-    = render "layouts/flash"
-    = yield
+    %main.app-main
+      .container.app-container
+        = render "layouts/flash"
+        = yield

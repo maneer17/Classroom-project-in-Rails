@@ -1,27 +1,27 @@
-- progress = (@student_assignments == 0 || @submitted_assignments == 0) ? 0 : ((@submitted_assignments.to_f / @student_assignments) * 100).round  
-- case progress   
-- when progress <= 25
+- progress = (@student_assignments == 0 || @submitted_assignments == 0) ? 0 : ((@submitted_assignments.to_f / @student_assignments) * 100).round
+- case progress
+- when 0..25
   - message = t(".progress_25")
-  - class_v = "progress-bar bg-danger"
-- when progress <= 50
+  - class_v = "bg-danger"
+- when 26..50
   - message = t(".progress_50")
-  - class_v = "progress-bar bg-warning"
-- when progress <= 75
+  - class_v = "bg-warning"
+- when 51..75
   - message = t(".progress_75")
-  - class_v = "progress-bar bg-info"
-- when progress < 90
+  - class_v = "bg-info"
+- when 76..89
   - message = t(".progress_90")
-  - class_v = "progress-bar bg-primary"
+  - class_v = "bg-primary"
 - else
   - message = t(".progress_100")
-  - class_v = "progress-bar bg-success"
+  - class_v = "bg-success"
 
-%h1= t(".your_progressbar")
-%br/
-.progress
-  %div{aria: {valuenow: progress}, class: "#{class_v}", role: "progressbar", style: "width: #{progress}%"}
-    = "#{progress}%"
-%br/
-%div{style: "margin-left: 50px"}
-  %h4{style: "color: olivedrab"}= message
-  %h6= t(".finished_assignments", submitted: @submitted_assignments.round, total: @student_assignments.round)
+- content_for :title, t(".your_progressbar")
+
+= render "shared/page_header", title: t(".your_progressbar"), subtitle: t(".finished_assignments", submitted: @submitted_assignments.round, total: @student_assignments.round)
+
+.progress-panel
+  .progress.mb-3
+    %div.progress-bar{class: class_v, role: "progressbar", style: "width: #{progress}%", "aria-valuenow": progress, "aria-valuemin": 0, "aria-valuemax": 100}
+      = "#{progress}%"
+  %p.lead.mb-0.text-center= message

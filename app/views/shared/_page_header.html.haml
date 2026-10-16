@@ -1,0 +1,11 @@
+- title ||= ""
+- subtitle ||= nil
+- actions ||= nil
+
+.page-header.d-flex.flex-column.flex-md-row.justify-content-between.align-items-md-start.gap-3
+  %div
+    %h1.page-header__title= title
+    - if subtitle.present?
+      %p.page-header__subtitle= subtitle
+  - if actions.present?
+    .page-header__actions= actions

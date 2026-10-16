@@ -1,9 +1,8 @@
 = turbo_stream_from post
-%section.section
-  .container
-    %nav.level
-    .content
-      %strong{style: "color:blue;"}= post.title
-      = post.body
 
-= render template: "shared/comments/index", locals: {comments: post.comments,role: :student,new_path: new_student_course_post_comment_path(course,post)}
+= render "shared/page_header", title: post.title
+
+.detail-card
+  = post.body
+
+= render template: "shared/comments/index", locals: { comments: post.comments, role: :student, new_path: new_student_course_post_comment_path(course, post), course: course, post: post }

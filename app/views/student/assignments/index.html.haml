@@ -1,18 +1,20 @@
+- content_for :title, t(".title", course_name: course.name)
 
-- content_for :title, t(".title",course_name: course.name)
+= render "shared/page_header", title: t(".title", course_name: course.name), subtitle: course.name
 
-%h1= t(".title",course_name: course.name)
-
-#assignments
-  %table.table
-    %thead
-      %tr
-        %th{scope: "col"}= t(".assignment") 
-        %th{scope: "col"}= t(".deadline") 
-    %tbody
-      - assignments.each do |assignment|
+- if assignments.any?
+  .data-table-wrap#assignments
+    %table.table.table-hover.align-middle.mb-0
+      %thead
         %tr
-          %td= link_to assignment.title, student_course_assignment_path(course, assignment)
-          %td= assignment.deadline.strftime("%B %d, %Y %I:%M %p")
+          %th= t(".assignment")
+          %th= t(".deadline")
+      %tbody
+        - assignments.each do |assignment|
+          %tr
+            %td= link_to assignment.title, student_course_assignment_path(course, assignment), class: "fw-semibold text-decoration-none"
+            %td.text-muted= assignment.deadline&.strftime("%B %d, %Y %I:%M %p")
+- else
+  = render "shared/empty_state", icon: "clipboard", title: "No assignments", message: "Your teacher hasn't posted assignments for this course yet."
 
-= link_to t(".back_to_course"), student_course_path(course)
+.mt-3= link_to t(".back_to_course"), student_course_path(course), class: "btn btn-link"

@@ -1,22 +1,17 @@
 - content_for :title, t(".title")
 
-.container.py-4
-  %h1.h3.fw-bold.mb-4= t(".your_courses")
+= render "shared/page_header", title: t(".your_courses"), subtitle: "Jump into assignments and class posts", actions: link_to(t("layouts.navbars.student.enroll_in_new_courses"), new_courses_student_courses_path, class: "btn btn-outline-primary")
 
-  .row.row-cols-1.row-cols-md-3.g-4
+- if courses.any?
+  .row.g-4#courses
     - courses.each do |course|
-      .col
+      .col-md-6.col-lg-4
         .card.course-card
           = render course
-
-          .card-footer.bg-transparent.border-0.pt-0
-            .d-flex.gap-2.mb-2
-              = button_to t(".assignments"), student_course_assignments_path(course),
-                            method: :get, class: "btn btn-primary btn-sm"
-              = button_to t(".posts"), student_course_posts_path(course),
-                            method: :get, class: "btn btn-primary btn-sm"
-
-            = button_to t(".unenroll_from_course"), unenroll_student_courses_path(course_id: course.id),
-                          method: :delete,
-                          class: "btn btn-outline-danger btn-sm w-100",
-                          data: { turbo_confirm: t(".turbo_confirm", course_name: course.name) }
+          .card-body.border-top
+            .course-card__actions
+              = link_to t(".assignments"), student_course_assignments_path(course), class: "btn btn-sm btn-primary"
+              = link_to t(".posts"), student_course_posts_path(course), class: "btn btn-sm btn-outline-primary"
+              = button_to t(".unenroll_from_course"), unenroll_student_courses_path(course_id: course.id), method: :delete, class: "btn btn-sm btn-outline-danger ms-auto", data: { turbo_confirm: t(".turbo_confirm", course_name: course.name) }
+- else
+  = render "shared/empty_state", icon: "collection", title: "No enrolled courses", message: "Browse the catalog and enroll to get started.", action: link_to("Enroll in courses", new_courses_student_courses_path, class: "btn btn-primary")

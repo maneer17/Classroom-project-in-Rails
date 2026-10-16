@@ -1,6 +1,6 @@
 - content_for :title, t(".title")
-%h1 New assignment
-= render "form"
-%br/
-%div
-  = link_to t(".back_to_assignments"), teacher_course_assignments_path
+
+= render "shared/page_header", title: t(".title"), subtitle: course.name
+
+.form-panel
+  = render "form", course: course, assignment: assignment

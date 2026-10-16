@@ -1,11 +1,2 @@
 web: env RUBY_DEBUG_OPEN=true bin/rails server
-css: yarn watch:css
-<<<<<<< HEAD
-css: yarn watch:css
-css: yarn watch:css
-css: yarn watch:css
-js: yarn build --watch
-css: yarn watch:css
-css: bin/rails dartsass:watch
-=======
->>>>>>> claude/rails-project-setup-b70f99
+css: npm run watch:css

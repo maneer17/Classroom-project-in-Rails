@@ -1,10 +1,11 @@
 - content_for :title, t(".title")
 
-.container.py-4
-  %h1.h3.fw-bold.mb-4= t(".title")
+= render "shared/page_header", title: t(".title"), subtitle: "Manage your teaching spaces", actions: link_to(t("layouts.navbars.teacher.new_course"), new_teacher_course_path, class: "btn btn-success")
 
-  .row.row-cols-1.row-cols-md-3.g-4
+- if courses.any?
+  .row.g-4#courses
     - courses.each do |course|
-      .col
-        .card.course-card
-          = render course
+      .col-md-6.col-lg-4
+        = render course
+- else
+  = render "shared/empty_state", icon: "journal-bookmark", title: "No courses yet", message: "Create your first course to start posting assignments.", action: link_to("New course", new_teacher_course_path, class: "btn btn-primary")

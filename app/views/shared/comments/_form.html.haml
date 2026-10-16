@@ -1,9 +1,8 @@
-= simple_form_for [role,course,post,comment] do |f|
-  .field
-    .control
-      = f.input :body, input_html: { class: "textarea" }, wrapper: false, label: false
-      = f.hidden_field :post_id, value: post.id 
-      = f.hidden_field :commenter_id, value: role == :student ? current_student.id : current_teacher.id
-      = f.hidden_field :commenter_type, value: role == :student ? 'Student' : 'Teacher'
-  = link_to "Cancel", role == :student ? student_course_post_path(course, post): teacher_course_post_path(course, post), class: "btn btn--light"    
-  = f.button :submit, class: "btn btn-primary"
+= simple_form_for [role, course, post, comment], html: { class: "vstack gap-2" } do |f|
+  = f.input :body, input_html: { class: "form-control", rows: 3 }, wrapper: false, label: false, placeholder: "Write a comment..."
+  = f.hidden_field :post_id, value: post.id
+  = f.hidden_field :commenter_id, value: role == :student ? current_student.id : current_teacher.id
+  = f.hidden_field :commenter_type, value: role == :student ? "Student" : "Teacher"
+  .d-flex.gap-2
+    = f.button :submit, class: "btn btn-primary btn-sm"
+    = link_to "Cancel", role == :student ? student_course_post_path(course, post) : teacher_course_post_path(course, post), class: "btn btn-link btn-sm"

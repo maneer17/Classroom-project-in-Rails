@@ -1,15 +1,18 @@
 - content_for :title, t(".title")
 
-%h1= t(".title")
+= render "shared/page_header", title: t(".title"), subtitle: "Stay ahead of due dates"
 
-#assignments
-  %table.table.table-bordered
-    %thead
-      %tr
-        %th{scope: "col"}=t(".ass_title")
-        %th{scope: "col"}=t(".ass_deadline") 
-    %tbody
-      - @assignments.each do |assignment|
+- if @assignments.any?
+  .data-table-wrap#assignments
+    %table.table.table-hover.align-middle.mb-0
+      %thead
         %tr
-          %td= link_to assignment[:title], student_course_assignment_path(assignment[:course_id], assignment[:assignment_id])
-          %td= assignment[:deadline]
+          %th= t(".ass_title")
+          %th= t(".ass_deadline")
+      %tbody
+        - @assignments.each do |assignment|
+          %tr
+            %td= link_to assignment[:title], student_course_assignment_path(assignment[:course_id], assignment[:assignment_id]), class: "fw-semibold text-decoration-none"
+            %td.text-muted= assignment[:deadline]
+- else
+  = render "shared/empty_state", icon: "calendar-check", title: "All caught up", message: "You have no upcoming assignment deadlines."
