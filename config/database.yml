@@ -27,7 +27,7 @@ development:
   database: moodle_development
   host: localhost
   username: <%= ENV.fetch("PGUSER", "postgres") %>
-  password: <%= ENV.fetch("PGPASSWORD", "postgres") %>
+  password: <%= ENV.fetch("PGPASSWORD", "manar21") %>
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
