@@ -1,10 +1,35 @@
-require 'faker'
+require "faker"
+require "open-uri"
 
-10.times do |index|
-  teacher_id = Teacher.all.sample.id
+TARGET_COURSE_COUNT = 10
 
-  Course.create(
-    name: Faker::Educator.course_name,
-     description: Faker::Quote.jack_handey,
-      teacher_id: teacher_id)
+puts "Creating courses..."
+
+teachers = Teacher.all
+
+TARGET_COURSE_COUNT.times do
+  course = Course.find_or_create_by!(name: Faker::Educator.unique.course_name) do |c|
+    c.description = Faker::Lorem.paragraph(sentence_count: 3)
+    c.teacher_id = teachers.sample.id
+  end
+
+  next if course.avatar.attached?
+
+  begin
+    image_url = "https://picsum.photos/seed/course-#{course.id}/800/600"
+    downloaded_image = URI.open(image_url)
+
+    course.avatar.attach(
+      io: downloaded_image,
+      filename: "cover_#{course.id}.jpg",
+      content_type: "image/jpeg"
+    )
+
+    puts "  Attached avatar for course #{course.id}"
+  rescue => e
+    puts "  Could not fetch cover image for course #{course.id}: #{e.class} - #{e.message}"
+  end
 end
+
+with_avatars = Course.joins(:avatar_attachment).count
+puts "Created #{Course.count} courses total, #{with_avatars} with avatars."

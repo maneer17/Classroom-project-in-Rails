@@ -10,7 +10,7 @@
           %span.badge.badge-soft.rounded-pill.mb-2= post.course.name
           %h3.h5
             = link_to post.title, student_course_post_path(post.course, post), class: "text-decoration-none"
-          .text-muted= truncate(post.body.to_plain_text, length: 280)
+          .text-muted= truncate(post.body, length: 280)
           %p.small.text-muted.mb-0.mt-2
             = t(".comments", num_of_comments: post.comments.count)
 - else

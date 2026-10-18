@@ -1,9 +1,24 @@
-require 'faker'
+require "faker"
 
-20.times do
-  course_id = Course.all.sample.id
+TARGET_POST_COUNT = 20
 
-  Post.create(title: Faker::Commerce.product_name,
-  body: Faker::Quote.matz,
-  course_id: course_id)
+puts "Creating posts..."
+
+courses = Course.all
+existing = Post.count
+
+if existing >= TARGET_POST_COUNT
+  puts "Already have #{existing} posts, skipping."
+else
+  (TARGET_POST_COUNT - existing).times do
+    course = courses.sample
+
+    Post.create!(
+      title: Faker::Lorem.sentence(word_count: 5).chomp("."),
+      body: Faker::Lorem.paragraph(sentence_count: 5),
+      course_id: course.id
+    )
+  end
 end
+
+puts "Created #{Post.count} posts total."
