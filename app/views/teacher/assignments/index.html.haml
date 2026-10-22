@@ -1,6 +1,6 @@
-- content_for :title, t(".title")
+- content_for :title, "Homework"
 
-= render "shared/page_header", title: "#{t('.assignments_for')} #{course.name}", actions: link_to(t(".new_assignment"), new_teacher_course_assignment_path, class: "btn btn-success")
+= render "shared/page_header", title: "Homework", subtitle: "Assignments for this class", actions: link_to("New assignment", new_teacher_course_assignment_path, class: "btn btn-success")
 
 - if assignments.any?
   .data-table-wrap#assignments

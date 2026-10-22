@@ -18,7 +18,7 @@
 
 - content_for :title, t(".your_progressbar")
 
-= render "shared/page_header", title: t(".your_progressbar"), subtitle: t(".finished_assignments", submitted: @submitted_assignments.round, total: @student_assignments.round)
+= render "shared/page_header", title: "My progress", subtitle: t(".finished_assignments", submitted: @submitted_assignments.round, total: @student_assignments.round), actions: link_to("My classes", student_courses_path, class: "btn btn-link")
 
 .progress-panel
   .progress.mb-3

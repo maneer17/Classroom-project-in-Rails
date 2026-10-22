@@ -1,6 +1,6 @@
-- content_for :title, "Posts feed"
+- content_for :title, "Class board"
 
-= render "shared/page_header", title: "Posts from your courses", subtitle: "Latest updates across enrolled classes"
+= render "shared/page_header", title: "Class board", subtitle: "Announcements from every class you have joined", actions: link_to("My classes", student_courses_path, class: "btn btn-link")
 
 - if @posts.any?
   .vstack.gap-3
@@ -10,7 +10,7 @@
           %span.badge.badge-soft.rounded-pill.mb-2= post.course.name
           %h3.h5
             = link_to post.title, student_course_post_path(post.course, post), class: "text-decoration-none"
-          .text-muted= truncate(post.body.to_plain_text, length: 280)
+          .text-muted= truncate(post.body, length: 280)
           %p.small.text-muted.mb-0.mt-2
             = t(".comments", num_of_comments: post.comments.count)
 - else

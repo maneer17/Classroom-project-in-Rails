@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.2"
 gem "ruby-vips"
-
+gem "faker"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "propshaft"
 # Use postgresql as the database for Active Record
@@ -13,6 +13,7 @@ gem "haml-rails", "~> 2.0"
 gem "simple_form"
 gem "unsplash_image"
 gem "cssbundling-rails"
+gem "dartsass-rails"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -29,7 +30,7 @@ gem "tty-prompt"
 gem "tty-command"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
-gem "ros-apartment", require: "apartment"
+#gem "ros-apartment", require: "apartment"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 gem "jwt"
@@ -55,7 +56,7 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
   gem "html2haml", "~> 2.3"
-  gem "faker"
+  #gem "faker"
   gem "pry"
 
 

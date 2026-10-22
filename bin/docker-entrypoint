@@ -1,13 +1,13 @@
-#!/bin/bash -e
+#!/bin/bash
+set -e
 
-# Enable jemalloc for reduced memory usage and latency.
-if [ -z "${LD_PRELOAD+x}" ] && [ -f /usr/lib/*/libjemalloc.so.2 ]; then
-  export LD_PRELOAD="$(echo /usr/lib/*/libjemalloc.so.2)"
+if [ "${1:0:1}" = '-' ]; then
+  set -- bundle exec puma -C config/puma.rb "$@"
 fi
 
-# If running the rails server then create or migrate existing database
-if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
+if [ "$1" = "bundle" ] && [ "$2" = "exec" ] && [ "$3" = "puma" ]; then
+  # Standard single-tenant database initialization setup
   ./bin/rails db:prepare
 fi
 
-exec "${@}"
+exec "$@"

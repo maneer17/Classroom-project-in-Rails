@@ -1,11 +1,15 @@
 = render "shared/page_header", title: course.name, subtitle: course.description
 
 .detail-card
+  %p.mb-2
+    %i.bi.bi-person-workspace.me-2
+    = Teacher.find(course.teacher_id).name
   %p.mb-0
     %i.bi.bi-people.me-2
-    = "#{course.students.count} students enrolled in this course"
+    = "#{course.students.count} students in this class"
+
+  %p.detail-card__hint Use the tabs above for the class board and your homework.
 
   .d-flex.flex-wrap.gap-2.mt-3
-    = link_to t("student.courses.index.assignments"), student_course_assignments_path(course), class: "btn btn-primary"
-    = link_to t("student.courses.index.posts"), student_course_posts_path(course), class: "btn btn-outline-primary"
-    = link_to "Back to my courses", student_courses_path, class: "btn btn-link"
+    = button_to "Leave this class", unenroll_student_courses_path(course_id: course.id), method: :delete, class: "btn btn-outline-danger btn-sm", data: { turbo_confirm: "Leave #{course.name}?" }
+    = link_to "Back to my classes", student_courses_path, class: "btn btn-link btn-sm"

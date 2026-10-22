@@ -138,3 +138,189 @@
     margin-bottom: 1.25rem;
   }
 }
+
+.entrance {
+  max-width: 860px;
+  margin: 1.5rem auto 0;
+  text-align: center;
+
+  &__kicker {
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: $sage;
+    margin-bottom: 0.75rem;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(2.4rem, 6vw, 3.5rem);
+    margin-bottom: 0.75rem;
+  }
+
+  &__lead {
+    color: $ink-muted;
+    font-size: 1.15rem;
+    max-width: 34rem;
+    margin: 0 auto;
+  }
+}
+
+.door-row {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+  text-align: left;
+
+  @media (min-width: 700px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.door {
+  background: $paper-elevated;
+  border: 1px solid $border-soft;
+  border-radius: $radius-lg;
+  padding: 1.75rem;
+  box-shadow: $shadow-soft;
+  display: flex;
+  flex-direction: column;
+  min-height: 240px;
+
+  &--student {
+    border-top: 4px solid $sage;
+  }
+
+  &--teacher {
+    border-top: 4px solid $clay;
+  }
+
+  &__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $ink-muted;
+    margin-bottom: 0.5rem;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__text {
+    color: $ink-muted;
+    margin-bottom: 1.25rem;
+  }
+
+  &__alt {
+    margin: 0.85rem 0 0;
+    font-size: 0.9rem;
+    color: $ink-muted;
+  }
+}
+
+.room-grid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 992px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.room-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 150px;
+  padding: 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  background: $paper-elevated;
+  border: 1px solid $border-soft;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-soft;
+
+  i {
+    font-size: 1.35rem;
+    color: $clay;
+    margin-bottom: 0.35rem;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: 1.15rem;
+  }
+
+  &__text {
+    color: $ink-muted;
+    font-size: 0.9rem;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    color: inherit;
+  }
+}
+
+.section-title {
+  font-family: $font-display;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.course-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0.45rem 0.5rem 0.45rem 1rem;
+  background: $paper-elevated;
+  border: 1px solid $border-soft;
+  border-radius: $radius-lg;
+
+  &__name {
+    font-family: $font-display;
+    font-size: 1.05rem;
+  }
+
+  &__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  &__tab {
+    text-decoration: none;
+    color: $ink-muted;
+    font-weight: 700;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+
+    &:hover {
+      color: $ink;
+      background: rgba(44, 40, 37, 0.04);
+    }
+
+    &.is-active {
+      background: $sage-light;
+      color: $sage;
+    }
+  }
+}
+
+.detail-card__hint {
+  color: $ink-muted;
+  margin-bottom: 1rem;
+}

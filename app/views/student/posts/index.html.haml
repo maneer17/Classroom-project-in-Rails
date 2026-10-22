@@ -1,6 +1,6 @@
-- content_for :title, t(".title", course_name: course.name)
+- content_for :title, "Board"
 
-= render "shared/page_header", title: t(".title", course_name: course.name)
+= render "shared/page_header", title: "Board", subtitle: "Announcements for this class"
 
 - if posts.any?
   .vstack.gap-3
@@ -8,7 +8,7 @@
       .card
         .card-body
           %h3.h5= link_to post.title, student_course_post_path(course, post), class: "text-decoration-none"
-          .text-muted.mb-2= truncate(post.body.to_plain_text, length: 200)
+          .text-muted.mb-2= truncate(post.body, length: 200)
           %span.badge.badge-soft.rounded-pill
             - count = post.comments.count
             = count == 0 ? t(".comments.zero") : (count == 1 ? t(".comments.one") : t(".comments.other", count: count))

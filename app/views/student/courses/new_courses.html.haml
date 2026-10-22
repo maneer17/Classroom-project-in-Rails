@@ -1,6 +1,6 @@
 - content_for :title, t(".title")
 
-= render "shared/page_header", title: t(".title"), subtitle: "Discover courses you can join"
+= render "shared/page_header", title: "Join a class", subtitle: "Courses you have not enrolled in yet", actions: link_to("My classes", student_courses_path, class: "btn btn-link")
 
 - if @courses.any?
   .row.g-4#courses
