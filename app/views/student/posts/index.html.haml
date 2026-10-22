@@ -1,6 +1,6 @@
-- content_for :title, t(".title", course_name: course.name)
+- content_for :title, "Board"
 
-= render "shared/page_header", title: t(".title", course_name: course.name)
+= render "shared/page_header", title: "Board", subtitle: "Announcements for this class"
 
 - if posts.any?
   .vstack.gap-3

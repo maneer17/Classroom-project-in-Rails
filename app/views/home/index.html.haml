@@ -1,28 +1,27 @@
-- content_for :title, "Welcome"
+- content_for :title, "Classroom"
 
-.landing-hero
-  %h1.landing-hero__title Your classroom, calm and clear
-  %p.landing-hero__lead
-    Courses, assignments, and discussions in one cozy place.
-    Sign in as a student or teacher to get started.
+.entrance
+  %p.entrance__kicker Classroom
+  %h1.entrance__title Take your seat
+  %p.entrance__lead
+    Students and teachers use different doors.
+    Sign in to open your classes.
 
-  .landing-cards
-    .landing-card
-      .landing-card__icon 🎓
-      %h2.landing-card__title Student
-      %p.landing-card__text Enroll in courses, submit work, and track your progress.
-      = link_to "Sign in as student", new_student_session_path, class: "btn btn-primary w-100"
-      .text-center.mt-2
-        %small.text-muted
-          New here?
-          = link_to "Create account", new_student_registration_path
+  .door-row
+    .door.door--student
+      %span.door__label Student
+      %h2.door__title Your classes are inside
+      %p.door__text Homework, the class board, and your progress each have their own page.
+      = link_to "Sign in", new_student_session_path, class: "btn btn-primary"
+      %p.door__alt
+        New here?
+        = link_to "Create a student account", new_student_registration_path
 
-    .landing-card
-      .landing-card__icon 📚
-      %h2.landing-card__title Teacher
-      %p.landing-card__text Create courses, post assignments, and review submissions.
-      = link_to "Sign in as teacher", new_teacher_session_path, class: "btn btn-outline-primary w-100"
-      .text-center.mt-2
-        %small.text-muted
-          New here?
-          = link_to "Create account", new_teacher_registration_path
+    .door.door--teacher
+      %span.door__label Teacher
+      %h2.door__title Your classes are inside
+      %p.door__text Open a class, then use the board and homework pages separately.
+      = link_to "Sign in", new_teacher_session_path, class: "btn btn-outline-primary"
+      %p.door__alt
+        New here?
+        = link_to "Create a teacher account", new_teacher_registration_path

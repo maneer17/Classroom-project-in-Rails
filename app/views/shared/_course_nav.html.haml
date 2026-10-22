@@ -1,0 +1,10 @@
+- course = classroom_course
+- if course
+  - teacher_view = current_teacher.present?
+  - section = course_section
+  %nav.course-nav{"aria-label": "Inside this class"}
+    %span.course-nav__name= course.name
+    .course-nav__tabs
+      = link_to "Overview", (teacher_view ? teacher_course_path(course) : student_course_path(course)), class: "course-nav__tab #{'is-active' if section == :overview}", "aria-current": (section == :overview ? "page" : nil)
+      = link_to "Board", (teacher_view ? teacher_course_posts_path(course) : student_course_posts_path(course)), class: "course-nav__tab #{'is-active' if section == :board}", "aria-current": (section == :board ? "page" : nil)
+      = link_to "Homework", (teacher_view ? teacher_course_assignments_path(course) : student_course_assignments_path(course)), class: "course-nav__tab #{'is-active' if section == :homework}", "aria-current": (section == :homework ? "page" : nil)

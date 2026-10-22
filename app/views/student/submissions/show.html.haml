@@ -1,4 +1,9 @@
-%p{:style => "color: green"}= notice
-= render submission
-%div
-  = link_to t(".back_to_assignment"), student_course_assignment_path(course,assignment)
+= render "shared/page_header", title: submission.title, subtitle: "Turned in #{submission.created_at.strftime('%B %d, %Y')}"
+
+.detail-card
+  - if submission.file.attached?
+    = render "attachment", submission: submission
+  - else
+    %p.mb-0.text-muted No file was attached.
+
+= link_to "Back to the assignment", student_course_assignment_path(course, assignment), class: "btn btn-outline-primary"

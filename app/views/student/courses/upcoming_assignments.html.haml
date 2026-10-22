@@ -1,6 +1,6 @@
 - content_for :title, t(".title")
 
-= render "shared/page_header", title: t(".title"), subtitle: "Stay ahead of due dates"
+= render "shared/page_header", title: "Homework due", subtitle: "Deadlines from every class", actions: link_to("My classes", student_courses_path, class: "btn btn-link")
 
 - if @assignments.any?
   .data-table-wrap#assignments

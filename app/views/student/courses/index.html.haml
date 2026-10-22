@@ -1,6 +1,26 @@
-- content_for :title, t(".title")
+- content_for :title, "My classes"
 
-= render "shared/page_header", title: t(".your_courses"), subtitle: "Jump into assignments and class posts", actions: link_to(t("layouts.navbars.student.enroll_in_new_courses"), new_courses_student_courses_path, class: "btn btn-outline-primary")
+= render "shared/page_header", title: "Hello, #{current_student.name.presence || "there"}", subtitle: "Your classes are below. Each other task opens on its own page."
+
+.room-grid
+  = link_to upcoming_assignments_student_courses_path, class: "room-card" do
+    %i.bi.bi-calendar-event
+    %span.room-card__title Homework due
+    %span.room-card__text Deadlines from every class
+  = link_to your_progress_student_courses_path, class: "room-card" do
+    %i.bi.bi-bar-chart
+    %span.room-card__title My progress
+    %span.room-card__text Work you have turned in
+  = link_to fetch_posts_student_courses_path, class: "room-card" do
+    %i.bi.bi-megaphone
+    %span.room-card__title Class board
+    %span.room-card__text Announcements from all your classes
+  = link_to new_courses_student_courses_path, class: "room-card" do
+    %i.bi.bi-door-open
+    %span.room-card__title Join a class
+    %span.room-card__text Find a course and enroll
+
+%h2.section-title My classes
 
 - if courses.any?
   .row.g-4#courses
@@ -8,10 +28,7 @@
       .col-md-6.col-lg-4
         .card.course-card
           = render course
-          .card-body.border-top
-            .course-card__actions
-              = link_to t(".assignments"), student_course_assignments_path(course), class: "btn btn-sm btn-primary"
-              = link_to t(".posts"), student_course_posts_path(course), class: "btn btn-sm btn-outline-primary"
-              = button_to t(".unenroll_from_course"), unenroll_student_courses_path(course_id: course.id), method: :delete, class: "btn btn-sm btn-outline-danger ms-auto", data: { turbo_confirm: t(".turbo_confirm", course_name: course.name) }
+          .card-body.border-top.pt-0
+            = link_to "Open class", student_course_path(course), class: "btn btn-sm btn-primary"
 - else
-  = render "shared/empty_state", icon: "collection", title: "No enrolled courses", message: "Browse the catalog and enroll to get started.", action: link_to("Enroll in courses", new_courses_student_courses_path, class: "btn btn-primary")
+  = render "shared/empty_state", icon: "collection", title: "No classes yet", message: "Join a class to see it here.", action: link_to("Join a class", new_courses_student_courses_path, class: "btn btn-primary")

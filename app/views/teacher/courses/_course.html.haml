@@ -4,6 +4,4 @@
     %h3.course-card__title= course.name
     %p.course-card__meta.text-truncate= truncate(course.description.to_s, length: 80)
     .course-card__actions
-      = link_to t("teacher.courses.course.show_more"), teacher_course_path(course), class: "btn btn-sm btn-outline-primary"
-      = link_to "Posts", teacher_course_posts_path(course), class: "btn btn-sm btn-outline-secondary"
-      = link_to "Assignments", teacher_course_assignments_path(course), class: "btn btn-sm btn-outline-secondary"
+      = link_to "Open class", teacher_course_path(course), class: "btn btn-sm btn-primary"

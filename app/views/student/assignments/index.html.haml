@@ -1,6 +1,6 @@
-- content_for :title, t(".title", course_name: course.name)
+- content_for :title, "Homework"
 
-= render "shared/page_header", title: t(".title", course_name: course.name), subtitle: course.name
+= render "shared/page_header", title: "Homework", subtitle: "Assignments for this class"
 
 - if assignments.any?
   .data-table-wrap#assignments
